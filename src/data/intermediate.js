@@ -1,0 +1,142 @@
+export const intermediateCourses = [
+  {
+    id: 'i1',
+    level: 'Intermediate',
+    icon: '📈',
+    title: 'Stock Market Mastery',
+    subtitle: 'How stocks work, how to analyze and pick winners',
+    duration: '15 min',
+    lessons: [
+      {
+        id: 'i1l1',
+        title: 'How Stocks Are Valued',
+        duration: '5 min',
+        content: `## How Stocks Are Valued\n\n### Key Valuation Metrics\n\n**P/E Ratio** = Price per share ÷ Annual earnings per share\n- S&P 500 average: ~20x\n- Below 15x = potentially cheap\n- Above 30x = expensive or high-growth priced in\n\n**P/B Ratio** = Market cap ÷ Book value of equity\n- Below 1.0 = trading below asset value\n\n**EV/EBITDA** — Better for comparing companies with different capital structures.\n\n**PEG Ratio** = P/E ÷ Earnings Growth Rate\n- PEG below 1.0 = potentially undervalued for a growth stock\n\n### Growth vs Value Stocks\n**Value stocks:** Low P/E, stable businesses, undervalued by market. (Berkshire, JPMorgan)\n**Growth stocks:** High P/E, rapid revenue growth expected. (Tesla, Nvidia)\n\n### Warren Buffett's Rule\n**"Buy great businesses at fair prices, not mediocre businesses at cheap prices."**`,
+      },
+      {
+        id: 'i1l2',
+        title: 'Reading Financial Statements',
+        duration: '5 min',
+        content: `## The Three Financial Statements\n\n### 1. Income Statement\nRevenue → Gross Profit → Operating Income → Net Income\n\nKey metrics:\n- **Gross Margin** = Gross Profit / Revenue (higher = stronger competitive position)\n- **Net Income growth** — look for consistent increases\n\n### 2. Balance Sheet\n**Assets = Liabilities + Equity**\n\n- **Current Ratio** = Current Assets / Current Liabilities (>1.5 is healthy)\n- **Debt-to-Equity** = Total Debt / Equity (<1.0 is conservative)\n- **ROE** = Net Income / Equity (>15% is excellent)\n\n### 3. Cash Flow Statement\nMore reliable than net income — companies can massage earnings but not cash.\n\n- **Free Cash Flow (FCF)** = Operating CF - Capital Expenditures\n- FCF is king — the real measure of business health\n\n### Warren Buffett's Checklist\n✅ Consistent earnings growth over 10 years\n✅ ROE >15% without excessive debt\n✅ Strong free cash flow\n✅ Simple, understandable business`,
+      },
+      {
+        id: 'i1l3',
+        title: 'How to Pick Stocks',
+        duration: '5 min',
+        content: `## A Framework for Picking Stocks\n\n### The 5-Step Process\n\n**Step 1: Understand the Business**\nCan you explain it in 2 sentences? If not, skip it.\n\n**Step 2: Assess the Competitive Moat**\nWhat stops competitors from stealing customers?\n- Brand (Coca-Cola, Apple)\n- Network effects (Meta, Visa)\n- Cost advantages (Amazon, Costco)\n- Switching costs (Adobe, Salesforce)\n\n**Step 3: Evaluate Financials**\n- Revenue growth >10%/year\n- Expanding margins\n- Low debt\n- Strong free cash flow\n\n**Step 4: Assess Management**\nFounder-led? Insiders own significant shares? Check SEC Form 4 for insider buying.\n\n**Step 5: Calculate Intrinsic Value**\nBuy only with a **margin of safety** (>20% discount to your estimate).\n\n### The Truth\n80%+ of professional fund managers underperform the S&P 500 over 15 years. For most investors, **index funds beat stock picking**.`,
+      },
+    ],
+  },
+  {
+    id: 'i2',
+    level: 'Intermediate',
+    icon: '🗂️',
+    title: 'Index Funds & ETFs',
+    subtitle: 'The most powerful wealth-building tool for most investors',
+    duration: '12 min',
+    lessons: [
+      {
+        id: 'i2l1',
+        title: 'Why Index Funds Win',
+        duration: '4 min',
+        content: `## Why Index Funds Beat Most Active Managers\n\n### The Shocking Truth\nAfter fees, **92% of large-cap active managers underperform the S&P 500** over 15 years (SPIVA Report).\n\n### Why?\n1. **Fees compound negatively** — A 1% annual fee costs ~25% of your wealth over 30 years\n2. **Transaction costs** — Frequent trading adds up\n3. **Zero-sum game** — For every winner, there's a loser. The average active manager IS the market, minus fees.\n\n### The Index Fund Advantage\n- **Low cost** — Vanguard S&P 500 ETF: 0.03% expense ratio\n- **Automatic diversification** — Own all 500 S&P companies instantly\n- **Tax efficient** — Low turnover = fewer taxable events\n- **Hands-off** — No research needed\n\n### Jack Bogle's Gift\nVanguard founder Jack Bogle invented the retail index fund in 1976. He's estimated to have created over **$1 trillion in savings** for ordinary investors.`,
+      },
+      {
+        id: 'i2l2',
+        title: 'The Best Index Funds to Own',
+        duration: '4 min',
+        content: `## Core Index Funds Every Investor Should Know\n\n**VTI** — Vanguard Total Stock Market ETF\n- Expense ratio: 0.03% | 3,700+ US stocks | ~12.7%/yr (10-yr)\n\n**VOO** — Vanguard S&P 500 ETF\n- Expense ratio: 0.03% | 500 largest US companies\n\n**VXUS** — Vanguard Total International\n- Expense ratio: 0.07% | 8,000+ non-US stocks\n\n**BND** — Vanguard Total Bond Market\n- Expense ratio: 0.03% | Stability during crashes\n\n**QQQ** — Invesco Nasdaq 100\n- Expense ratio: 0.20% | Tech-heavy growth tilt\n\n### The Ultimate Simple Portfolio\n- 80% VTI or VOO\n- 20% VXUS\n\nThat's it. This beats 90%+ of professional money managers.\n\n### For Your $30K\n- $24,000 → VTI/VOO (US stocks)\n- $6,000 → VXUS (International)\nAdd bonds only when within 10 years of needing the money.`,
+      },
+      {
+        id: 'i2l3',
+        title: 'Dollar-Cost Averaging',
+        duration: '4 min',
+        content: `## Dollar-Cost Averaging (DCA): Invest Without Fear\n\n### How DCA Works\nInvest a fixed amount at regular intervals (weekly, monthly) regardless of price.\n\n### Why It Works\n- When prices are **high** → your fixed amount buys **fewer** shares\n- When prices are **low** → your fixed amount buys **more** shares\n- Your average cost ends up below the average price over time\n\n### DCA vs Lump Sum\nStudies show lump-sum investing beats DCA ~66% of the time (markets trend up). BUT DCA beats lump-sum in volatile markets and is psychologically much easier to stick with.\n\n### The Best Approach for Your $30K\n**Hybrid method:**\n1. Invest $15K immediately (lump sum half your capital)\n2. DCA remaining $15K at $1,500/month for 10 months\n3. Set up auto-investment of new savings monthly\n\nCaptures most of the lump-sum advantage while managing timing risk.`,
+      },
+    ],
+  },
+  {
+    id: 'i3',
+    level: 'Intermediate',
+    icon: '🏦',
+    title: 'Tax-Advantaged Accounts',
+    subtitle: 'Legal strategies that can save you hundreds of thousands',
+    duration: '14 min',
+    lessons: [
+      {
+        id: 'i3l1',
+        title: '401(k) Deep Dive',
+        duration: '5 min',
+        content: `## The 401(k): Your Most Powerful Wealth Tool\n\n### What Is It?\nAn employer-sponsored retirement account where contributions are deducted **before** taxes. Money grows tax-deferred until retirement.\n\n### 2024 Contribution Limits\n- Employee limit: **$23,000/year**\n- Catch-up (50+): +$7,500\n- With employer match: up to $69,000\n\n### The Employer Match: NEVER Leave This Behind\nEmployer matches 100% up to 4% of $80K salary:\n- Your contribution: $3,200\n- Employer match: $3,200 FREE\n- That's an **instant 100% return**\n\n### Traditional vs Roth 401(k)\n**Traditional:** Pre-tax contributions, taxed on withdrawal. Better if high tax bracket now.\n**Roth:** After-tax contributions, tax-FREE growth and withdrawal. Better if you expect higher taxes later.\n\n### Investment Tip\nFind the lowest-cost index fund in your 401(k) plan (look for <0.1% expense ratio). Avoid high-fee actively managed funds.`,
+      },
+      {
+        id: 'i3l2',
+        title: 'Roth IRA: Tax-Free Forever',
+        duration: '5 min',
+        content: `## The Roth IRA: Possibly the Best Account Ever Created\n\n### How It Works\n- Contribute **after-tax** money\n- Grows completely **TAX FREE**\n- Withdrawals in retirement: **TAX FREE**\n- No required minimum distributions\n\n### 2024 Limits\n- $7,000/year (under 50)\n- $8,000/year (50+)\n- Income phases out at $146K-$161K (single)\n\n### The Math\n$7,000/year for 30 years at 10% = **$1,147,000**\nTax on withdrawal = **$0**\n\nIn a taxable account, same $1.1M would cost ~$165,000 in capital gains taxes.\n\n### Where to Open It\n- **Fidelity** — best overall, no minimums, fractional shares\n- **Vanguard** — legendary low costs\n- **Schwab** — excellent platform\n\n### What to Invest In\nVTI or VOO inside your Roth IRA. Let it grow tax-free for decades.\n\n### Backdoor Roth IRA\nIf income is too high, contribute to Traditional IRA then convert to Roth (consult a tax professional).`,
+      },
+      {
+        id: 'i3l3',
+        title: 'HSA: The Triple Tax Advantage',
+        duration: '4 min',
+        content: `## The HSA: America's Most Overlooked Account\n\n### Three Tax Advantages (Unique to HSA)\n1. Contributions are **pre-tax** (like 401k)\n2. Growth is **tax-free** (like Roth IRA)\n3. Withdrawals for medical expenses are **tax-free**\n\nNo other account offers all three.\n\n### 2024 Contribution Limits\n- Individual: $4,150/year\n- Family: $8,300/year\n\n### The Stealth Retirement Strategy\nAfter age 65, withdraw for ANY purpose and pay only ordinary income tax — just like a Traditional IRA.\n\nBonus: Save all medical receipts, invest HSA in index funds, let it grow 30 years, then withdraw tax-free to reimburse old expenses. No time limit on reimbursements!\n\n### The Optimal Order of Operations\n1. 401(k) up to employer match\n2. Max HSA\n3. Max Roth IRA\n4. Max 401(k)\n5. Taxable brokerage`,
+      },
+    ],
+  },
+  {
+    id: 'i4',
+    level: 'Intermediate',
+    icon: '🏗️',
+    title: 'Portfolio Construction',
+    subtitle: 'Build a portfolio designed for maximum long-term returns',
+    duration: '13 min',
+    lessons: [
+      {
+        id: 'i4l1',
+        title: 'Asset Allocation',
+        duration: '4 min',
+        content: `## Asset Allocation: The Most Important Decision\n\n### Research Finding\nAsset allocation determines **90%+** of your portfolio's long-term return. Stock selection and market timing account for less than 10%.\n\n### Modern Rule of Thumb\n- Under 40: 90-100% stocks\n- 40-55: 80-90% stocks\n- 55-65: 70-80% stocks\n\n### The Three-Fund Portfolio (Bogleheads Classic)\n1. **VTI** (US Total Market) — 60%\n2. **VXUS** (International Stocks) — 30%\n3. **BND** (US Bonds) — 10%\n\nSimple. Diversified. Beats most alternatives.\n\n### Rebalancing\nWhen one asset class outgrows its target, rebalance back annually. Forces systematic **buy low, sell high** behavior.`,
+      },
+      {
+        id: 'i4l2',
+        title: 'Diversification Deep Dive',
+        duration: '5 min',
+        content: `## True Diversification: Levels That Matter\n\n### Level 1: Individual Stock Risk\nOwn 20+ uncorrelated stocks to eliminate company-specific risk.\n\n### Level 2: Sector Risk\nDon't overweight one sector. The S&P 500 is ~30% tech. Consider:\n- Healthcare (defensive)\n- Consumer staples (defensive)\n- Energy (inflation hedge)\n- Real Estate (REITs)\n\n### Level 3: Geographic Risk\nUS = ~60% of global market cap. Add international:\n- Developed markets: Europe, Japan (VXUS)\n- Emerging markets: China, India (VWO)\n\n### Level 4: Asset Class Risk\nMix assets that don't move together:\n- Stocks + Bonds (negative correlation in crashes)\n- Stocks + Real Estate (low correlation)\n- Stocks + Gold (hedge against chaos)\n\n### Correlation: The Key Concept\nDuring 2008: Stocks (-37%) + Investment-grade bonds (+5%). True diversification at work.`,
+      },
+      {
+        id: 'i4l3',
+        title: 'Rebalancing Strategy',
+        duration: '4 min',
+        content: `## Rebalancing: The Mechanical Genius\n\n### What Is Rebalancing?\nPeriodically selling assets above your target allocation and buying those below.\n\n### Why It Works\nForces systematic **buy low, sell high**:\n- Stocks run up → you SELL (taking profits)\n- Stocks crash → you BUY (getting the discount)\n\n### Rebalancing Methods\n\n**Time-based:** Rebalance annually (optimal for most)\n\n**Threshold-based:** Rebalance when any asset drifts >5% from target\n\n**Cash-flow rebalancing:** Direct new investments to underweighted assets (avoids selling, no taxes)\n\n### Tax-Smart Rebalancing\n- Rebalance inside tax-advantaged accounts first (no tax on sales)\n- In taxable accounts, use new contributions to rebalance before selling\n- Annual rebalancing is optimal — more frequent = higher taxes/costs`,
+      },
+    ],
+  },
+  {
+    id: 'i5',
+    level: 'Intermediate',
+    icon: '🏠',
+    title: 'Real Estate Investing',
+    subtitle: 'Build wealth through property — physical and virtual',
+    duration: '14 min',
+    lessons: [
+      {
+        id: 'i5l1',
+        title: 'Direct Real Estate',
+        duration: '5 min',
+        content: `## Investing in Direct Real Estate\n\n### Multiple Return Streams\n1. **Cash flow** — Monthly rental income after expenses\n2. **Appreciation** — Property value increase (~4%/year average)\n3. **Mortgage paydown** — Tenants pay down your loan\n4. **Tax benefits** — Depreciation, expense deductions\n5. **Leverage** — Control $300K property with $60K down (5x leverage)\n\n### The 1% Rule (Quick Filter)\nMonthly rent ≥ 1% of purchase price.\n$200,000 property → needs $2,000/month rent.\n\n### The BRRRR Method\n**Buy → Rehab → Rent → Refinance → Repeat**\nBuy undervalued → renovate → rent → refinance (pull out equity) → repeat with same capital.\n\n### With $30K\nYou could buy a $120-150K rental property with 20% down (~$24-30K) in affordable Midwest/Southeast markets.\n\n### Risks\n- Illiquid (hard to sell quickly)\n- Tenant headaches\n- Maintenance costs\n- Geographic concentration`,
+      },
+      {
+        id: 'i5l2',
+        title: 'REITs: Real Estate Like Stocks',
+        duration: '5 min',
+        content: `## REITs: Own Real Estate Without Being a Landlord\n\n### What Is a REIT?\nA Real Estate Investment Trust that must pay 90%+ of taxable income as dividends. Invest in office buildings, apartments, hospitals — without any landlord duties.\n\n### REIT Categories\n**Industrial:** Prologis (PLD) — warehouses for Amazon, logistics\n**Healthcare:** Welltower (WELL) — hospitals, senior housing\n**Data Centers:** Equinix (EQIX), Digital Realty (DLR)\n**Retail:** Realty Income (O) — "The Monthly Dividend Company"\n**Residential:** AvalonBay (AVB), Equity Residential (EQR)\n\n### Best REIT ETFs\n- **VNQ** — Vanguard Real Estate ETF, 0.12% expense ratio, 160+ REITs\n- **SCHH** — Schwab US REIT ETF, 0.07% expense ratio\n\n### Tax Note\nREIT dividends are typically taxed as ordinary income. Best held in Roth IRA or tax-deferred account.\n\n### Average REIT dividend yield: 3-6%`,
+      },
+      {
+        id: 'i5l3',
+        title: 'Real Estate Crowdfunding',
+        duration: '4 min',
+        content: `## Real Estate Crowdfunding Platforms\n\n### Top Platforms\n\n**Fundrise** — Most popular, $10 minimum, ~8-12%/year historically. Great for beginners.\n\n**CrowdStreet** — Accredited investors, individual commercial deals, $25K+ minimums.\n\n**RealtyMogul** — Mix of debt and equity, $5K minimum.\n\n**Arrived Homes** — Invest in single-family rentals for as little as $100.\n\n### Pros\n- Passive income without landlord duties\n- Access to commercial deals individual investors can't access\n- Diversification across many properties\n\n### Cons\n- Illiquid (locked up 1-7 years typically)\n- Platform risk\n- Less transparent than direct ownership\n\n### How This Fits Your $30K\nA reasonable allocation: **$3,000-5,000 in Fundrise** for passive real estate exposure while keeping most capital in liquid ETFs.`,
+      },
+    ],
+  },
+];

@@ -1,0 +1,142 @@
+export const advancedCourses = [
+  {
+    id: 'a1',
+    level: 'Advanced',
+    icon: '🎯',
+    title: 'Options Trading',
+    subtitle: 'Leverage, income, and protection through derivatives',
+    duration: '18 min',
+    lessons: [
+      {
+        id: 'a1l1',
+        title: 'Options Fundamentals',
+        duration: '6 min',
+        content: `## Options: Contracts That Give You Rights\n\n### What Is an Option?\nA contract giving you the RIGHT (not obligation) to buy or sell 100 shares at a specific price before a specific date.\n\n### Two Types\n**Call Option** — Right to BUY stock at the strike price\n- Buy a call when you expect stock to RISE\n- Max loss: premium paid | Max gain: unlimited\n\n**Put Option** — Right to SELL stock at the strike price\n- Buy a put when you expect stock to FALL or to protect a position\n- Max loss: premium paid\n\n### Key Terms\n- **Strike Price** — Price at which you can buy/sell\n- **Premium** — Cost of the option contract\n- **Expiration** — When the option expires\n- **In-the-Money (ITM)** — Option has intrinsic value\n- **Out-of-the-Money (OTM)** — Option has no intrinsic value yet\n\n### The Greeks\n- **Delta** — How much option moves per $1 stock move\n- **Theta** — Time decay (options lose value daily)\n- **Vega** — Sensitivity to volatility\n\n### WARNING\n70-80% of options expire worthless. Paper trade for 3+ months before risking real money.`,
+      },
+      {
+        id: 'a1l2',
+        title: 'Covered Calls: Income Strategy',
+        duration: '6 min',
+        content: `## Covered Calls: Generate Income on Stocks You Own\n\n### The Strategy\nIf you own 100 shares of a stock, you can SELL a call option and collect premium income immediately.\n\n### Example\n1. Own 100 shares of Apple at $180\n2. Sell 1 call option at $185 strike for $3.00 premium\n3. Collect $300 immediately (100 shares × $3)\n\n**Scenario A: Apple stays below $185**\nOption expires worthless. Keep $300. Repeat monthly = ~20% extra annual yield.\n\n**Scenario B: Apple rises above $185**\nShares "called away" at $185. Profit: $500 (price gain) + $300 (premium) = $800 total. You miss gains above $185.\n\n### Risk\nYou cap your upside. If Apple shoots to $220, you made $800 instead of $4,000.\n\n### The Wheel Strategy\nSell cash-secured puts → get assigned shares → sell covered calls → repeat. Creates a systematic income cycle.\n\n### Best For\n- Stable stocks you're willing to sell\n- Neutral to slightly bullish outlook\n- Generating income in flat/slow markets`,
+      },
+      {
+        id: 'a1l3',
+        title: 'Protective Puts & Collars',
+        duration: '6 min',
+        content: `## Portfolio Protection with Options\n\n### Protective Put (Portfolio Insurance)\nOwn 100 shares of SPY at $450. Buy 1 put at $430 strike for $5 premium.\n\nIf SPY crashes to $390: your put is worth $40. You only lose $450→$430 (the deductible) + $5 premium = $25 max loss vs $60 without protection.\n\n### The Collar Strategy (Near-Zero Cost Protection)\n- Own 100 shares at $100\n- Buy put at $90 strike for $3 (protection)\n- Sell call at $110 strike for $3 (income)\n- Net cost: **$0**\n\nResult: Protected below $90, profit up to $110, you give up gains above $110.\n\n### When to Use Options for Protection\n- Large concentrated position in one stock\n- Approaching retirement (protect gains)\n- Known event risk (earnings, FDA decisions)\n- Market looks extended and you're nervous\n\n### The Bottom Line\nOptions are powerful but require significant study. Misuse has blown up many accounts. Master the basics, paper trade, then start small.`,
+      },
+    ],
+  },
+  {
+    id: 'a2',
+    level: 'Advanced',
+    icon: '📊',
+    title: 'Technical Analysis',
+    subtitle: 'Reading price charts to identify trading opportunities',
+    duration: '16 min',
+    lessons: [
+      {
+        id: 'a2l1',
+        title: 'Chart Reading Basics',
+        duration: '5 min',
+        content: `## Technical Analysis: Reading the Market's Language\n\n### Candlestick Charts\nEach candle shows: Open, High, Low, Close for a time period.\n- **Green candle** — Closed HIGHER than opened (bullish)\n- **Red candle** — Closed LOWER than opened (bearish)\n- **Wick/Shadow** — Price extremes during the period\n\n### Support & Resistance\n**Support** — Price level where buyers consistently emerge (price floor)\n**Resistance** — Price level where sellers consistently emerge (price ceiling)\n\nWhen resistance is broken, it often becomes new support.\n\n### Trend Lines\n- **Uptrend** — Series of higher highs and higher lows\n- **Downtrend** — Series of lower highs and lower lows\n- **Range** — Price bouncing between support and resistance\n\n### Volume\nConfirms price moves. Rising price + rising volume = healthy trend. Rising price + falling volume = suspect move.\n\n### The 200-Day Moving Average\nThe single most important technical indicator. Price above 200 DMA = long-term uptrend. Price below = downtrend.`,
+      },
+      {
+        id: 'a2l2',
+        title: 'Key Technical Indicators',
+        duration: '6 min',
+        content: `## The Most Reliable Technical Indicators\n\n### Moving Averages\n**Golden Cross** — 50-day MA crosses ABOVE 200-day MA → strong bullish signal\n**Death Cross** — 50-day MA crosses BELOW 200-day MA → strong bearish signal\n\n### RSI (Relative Strength Index)\nMeasures momentum on a scale of 0-100.\n- Above 70 → **Overbought** (potential sell)\n- Below 30 → **Oversold** (potential buy)\n- Divergence: Price new high but RSI doesn't → weakening momentum\n\n### MACD\nRelationship between two EMAs (12 and 26 day).\n- MACD line crosses above Signal line → bullish\n- MACD crosses below Signal line → bearish\n\n### Bollinger Bands\nThree bands: middle SMA + upper/lower bands at 2 standard deviations.\n- Price at upper band → potentially overbought\n- Price at lower band → potentially oversold\n- **Band Squeeze** → low volatility → breakout coming\n\n### Limitation\nTA works better in trending markets. It's a probability tool, not a crystal ball. Always use stop losses.`,
+      },
+      {
+        id: 'a2l3',
+        title: 'High-Probability Chart Patterns',
+        duration: '5 min',
+        content: `## Chart Patterns That Work\n\n### Continuation Patterns\n**Bull Flag**\nSharp upward move (flagpole) → brief consolidation (flag) → breakout continues.\nTarget: Add flagpole length to breakout point. One of the most reliable bullish patterns.\n\n**Cup and Handle**\nRounded bottom (cup) → brief pullback (handle) → breakout to new highs.\nWilliam O'Neil's favorite pattern.\n\n### Reversal Patterns\n**Head and Shoulders (Bearish)**\nLeft shoulder → head (higher peak) → right shoulder → break of neckline = SELL.\nOne of the most reliable reversal patterns.\n\n**Inverse Head and Shoulders (Bullish)**\nSame pattern upside down = BUY on neckline break.\n\n**Double Top / Bottom**\n- Double top = sell at neckline break\n- Double bottom = buy at neckline break\n\n### Trading Checklist\n1. Identify pattern correctly\n2. Wait for confirmation (breakout with volume)\n3. Set stop loss below pattern's low\n4. Target = pattern height added to breakout point\n5. Risk/reward ratio ≥ 2:1`,
+      },
+    ],
+  },
+  {
+    id: 'a3',
+    level: 'Advanced',
+    icon: '🌐',
+    title: 'Cryptocurrency',
+    subtitle: 'Digital assets: risks, opportunities, and technology',
+    duration: '15 min',
+    lessons: [
+      {
+        id: 'a3l1',
+        title: 'Bitcoin & Blockchain',
+        duration: '5 min',
+        content: `## Bitcoin: Digital Gold\n\n### What Is Bitcoin?\nA decentralized digital currency with a fixed supply of 21 million coins. No central bank, no government control.\n\n### Why Bitcoin Has Value\n1. **Scarcity** — Hard cap of 21 million BTC\n2. **Decentralization** — No single point of failure\n3. **Security** — Most secure financial network ever built\n4. **Network effects** — More users = more valuable = more secure\n5. **Portability** — $1 billion sent anywhere in the world in 10 minutes\n\n### Bitcoin's Investment Case\n- Store of value (digital gold narrative)\n- Inflation hedge (fixed supply vs. endless dollar printing)\n- Institutional adoption (BlackRock, Fidelity, MicroStrategy)\n- Bitcoin ETFs approved in 2024\n\n### Bitcoin Halving\nEvery ~4 years, mining reward is cut in half → reduces new supply. History shows massive price appreciation after each halving (2012, 2016, 2020).\n\n### Risk Profile\nExtreme volatility. Bitcoin has had 5+ drawdowns of >80%. Only invest what you can afford to lose completely. **Recommended: 1-5% of portfolio.**`,
+      },
+      {
+        id: 'a3l2',
+        title: 'Ethereum & DeFi',
+        duration: '5 min',
+        content: `## Ethereum: The World Computer\n\n### What Makes Ethereum Different\nProgrammable money — a blockchain that runs **smart contracts** (self-executing code).\n\n### What's Built on Ethereum\n- **DeFi** — Lending, borrowing, trading without banks\n- **NFTs** — Provably scarce digital ownership\n- **Stablecoins** — USDC, DAI\n- **Layer 2s** — Arbitrum, Optimism (faster, cheaper)\n\n### Ethereum's Investment Thesis\n- ETH is the "gas" needed to use the Ethereum network\n- More apps → more ETH demand → price appreciation\n- Post-Merge (2022): ETH became deflationary — supply shrinks during high usage\n- ETH staking yields ~4-6% annually\n\n### DeFi Protocols\n- **Uniswap** — Trade any token without a centralized exchange\n- **Aave/Compound** — Lend crypto and earn interest\n- **MakerDAO** — Borrow stablecoins against crypto collateral\n\n### Risk\nSmart contract exploits have cost DeFi billions. Only use audited, battle-tested protocols.`,
+      },
+      {
+        id: 'a3l3',
+        title: 'Crypto Portfolio Strategy',
+        duration: '5 min',
+        content: `## Building a Smart Crypto Portfolio\n\n### The Barbell Approach\n**80-90% in Blue Chips:**\n- Bitcoin (BTC): 50-60% of crypto allocation\n- Ethereum (ETH): 20-30% of crypto allocation\n\n**10-20% in Higher-Risk Alts:**\n- Solana (SOL): High-performance blockchain\n- Chainlink (LINK): Oracle network\n\n### What to AVOID\n- Meme coins (DOGE, SHIB): speculation only\n- New, unaudited DeFi protocols: rug pull risk\n- Anything offering 100%+ APY: almost always a Ponzi\n- Celebrity-endorsed coins: usually pump-and-dump\n\n### How Much Crypto in Your $30K?\n- Conservative: $1,500 (5%) — BTC only\n- Moderate: $3,000 (10%) — BTC + ETH\n- Aggressive: $6,000 (20%) — Full basket\n\n### Storage\n- **Exchanges** (Coinbase, Kraken): Easy, but "not your keys, not your coins"\n- **Hardware wallet** (Ledger, Trezor): Use if holding >$5K\n\n### Tax\nCrypto is taxed as property. Every trade is taxable. Use Koinly or TaxBit.`,
+      },
+    ],
+  },
+  {
+    id: 'a4',
+    level: 'Advanced',
+    icon: '🧮',
+    title: 'Tax Strategy',
+    subtitle: 'Keep more of what you earn through smart tax planning',
+    duration: '14 min',
+    lessons: [
+      {
+        id: 'a4l1',
+        title: 'Capital Gains Mastery',
+        duration: '5 min',
+        content: `## Capital Gains: The Investor's Tax\n\n### Short-Term vs Long-Term\n**Short-Term** (held < 1 year): Taxed at ordinary income rates (10%-37%)\n**Long-Term** (held > 1 year): Preferential rates (0%, 15%, 20%)\n\n### 2024 Long-Term Capital Gains Rates\n- 0% if income < $47,025 (single) / $94,050 (married)\n- 15% if income $47,025-$518,900 (single)\n- 20% if income > $518,900\n\n### The 0% Capital Gains Strategy\nIf your taxable income is below the threshold, you pay ZERO tax on long-term gains. Use this to:\n- Realize gains tax-free\n- Reset your cost basis higher ("tax gain harvesting")\n- Then immediately rebuy the same investments\n\n### Always Hold for 1+ Year\nThe difference between short-term and long-term treatment: 15-20%. On a $30K position, that's **$4,500-$6,000 in tax savings**.\n\n### The $250K/$500K Home Exclusion\nWhen selling a primary residence, up to $250K ($500K married) of gain is tax-free.`,
+      },
+      {
+        id: 'a4l2',
+        title: 'Tax-Loss Harvesting',
+        duration: '5 min',
+        content: `## Tax-Loss Harvesting: Turn Losses Into Tax Savings\n\n### How It Works\n1. VTI is down $5,000 from your purchase price\n2. Sell VTI, realizing a $5,000 capital loss\n3. Immediately buy ITOT (similar, but not "substantially identical")\n4. Your $5,000 loss offsets $5,000 of capital gains elsewhere\n5. At 20% tax rate, you saved **$1,000 in taxes**\n6. Portfolio position is essentially unchanged\n\n### The Wash-Sale Rule\nCan't buy "substantially identical" security within 30 days before or after the sale.\n\nApproved swap pairs:\n- VTI → ITOT or SCHB\n- VOO → IVV or SCHX\n- QQQ → QQQM or VGT\n\n### Capital Loss Carryforward\nIf losses exceed gains, up to $3,000/year offsets ordinary income. Additional losses carry forward indefinitely.\n\n### Automated TLH\nBetterment, Wealthfront, and Fidelity's robo-advisor do this automatically.\n\n### The Math\nDisciplined TLH adds 0.5-2% annual after-tax return. On $1M over 20 years: potentially **$500K+ in tax savings**.`,
+      },
+      {
+        id: 'a4l3',
+        title: 'Advanced Tax Strategies',
+        duration: '4 min',
+        content: `## Advanced Tax Strategies for Investors\n\n### Asset Location\nPut the RIGHT investments in the RIGHT accounts.\n\n**Tax-Advantaged (Roth IRA / 401k):**\n- REITs (high ordinary income dividends)\n- Bonds (interest taxed as ordinary income)\n- High-yield stocks, actively traded positions\n\n**Taxable Brokerage:**\n- Index funds (low turnover = few taxable events)\n- Long-term buy-and-hold stocks\n- Municipal bonds (interest is tax-free)\n\n### Roth Conversion Ladder\nConvert Traditional IRA to Roth IRA during low-income years. Pay tax at low rate now, avoid RMDs forever.\n\n### Qualified Opportunity Zones (QOZ)\nInvest capital gains in designated low-income communities.\n- Defer capital gains for up to 10 years\n- **Zero tax** on QOZ investment appreciation if held 10 years\n\n### Donate Appreciated Securities\nInstead of cash, donate appreciated stock directly:\n- Avoid capital gains tax on appreciation\n- Deduction for full fair market value\n- On $10K position with $7K gain, saves $1,050+ in taxes`,
+      },
+    ],
+  },
+  {
+    id: 'a5',
+    level: 'Advanced',
+    icon: '🚀',
+    title: 'Your $30K Investment Plan',
+    subtitle: 'A specific, actionable roadmap to grow your $30,000',
+    duration: '16 min',
+    lessons: [
+      {
+        id: 'a5l1',
+        title: 'Step-by-Step Deployment Plan',
+        duration: '6 min',
+        content: `## Your $30,000 Investment Roadmap\n\n### Step 1: Before You Invest (Week 1)\n☐ Ensure you have 3-6 months emergency fund in HYSA\n☐ Pay off any high-interest debt (>7%)\n☐ Open: Roth IRA at Fidelity + taxable brokerage\n☐ Check 401(k) — are you getting the full employer match?\n\n### Step 2: Asset Allocation\nAssuming 20-35 age range, long time horizon:\n\n| Allocation | Amount | Account |\n|-----------|--------|--------|\n| Roth IRA | $7,000 | VTI + VXUS |\n| Taxable (lump sum) | $15,000 | VTI or VOO |\n| Taxable (DCA) | $5,000 | $500/mo x 10 months |\n| Crypto | $2,000 | BTC + ETH 50/50 |\n| Cash buffer | $1,000 | HYSA |\n\n### Step 3: Best Brokers\n- **Fidelity** — No minimums, fractional shares, best for beginners\n- **Schwab** — Great customer service\n- **M1 Finance** — Auto-rebalancing, set it and forget it\n\n### Step 4: Automate\nSet up monthly auto-invest from paycheck. Even $200/month extra accelerates wealth dramatically.\n$30K + $500/month at 10% for 30 years = **$1.47 million**\n\n### Step 5: Ignore Daily Noise\nCheck quarterly. Rebalance annually. The worst investors are the most active ones.`,
+      },
+      {
+        id: 'a5l2',
+        title: 'Three Portfolio Paths',
+        duration: '5 min',
+        content: `## Three Portfolio Approaches for Your $30K\n\n### Path 1: The Couch Potato (Simple & Effective)\n| Investment | Amount |\n|-----------|--------|\n| VOO (S&P 500) | $18,000 |\n| VXUS (International) | $9,000 |\n| BND (Bonds) | $3,000 |\n\nExpected return: ~8-10%/year\nIn 20 years: **$140,000-$200,000**\n\n### Path 2: The Growth Portfolio\n| Investment | Amount |\n|-----------|--------|\n| VTI (Total US Market) | $15,000 |\n| QQQ (Nasdaq 100) | $6,000 |\n| VXUS (International) | $6,000 |\n| VNQ (REITs) | $2,000 |\n| BTC/ETH | $1,000 |\n\nExpected return: ~11-13%/year\nIn 20 years: **$200,000-$350,000**\n\n### Path 3: The Active Investor\n| Investment | Amount |\n|-----------|--------|\n| Core ETFs (VOO + VTI) | $12,000 |\n| Individual stocks (3-5) | $12,000 |\n| Crypto (BTC + ETH) | $3,000 |\n| REITs / Real Estate | $3,000 |\n\nExpected return: highly variable (6%-30%+)\n\n### Which Is Right For You?\n- Can't spend 5+ hrs/week researching? → **Path 1 or 2**\n- Love deep research and have conviction? → **Path 3**`,
+      },
+      {
+        id: 'a5l3',
+        title: 'Mindset & Common Mistakes',
+        duration: '5 min',
+        content: `## The Investor's Mindset: Avoiding Costly Mistakes\n\n### The 7 Most Expensive Investing Mistakes\n\n**1. Panic Selling**\nSelling during market crashes locks in permanent losses. The S&P 500 has recovered from EVERY crash in history.\n\n**2. Chasing Performance**\nLast year's best fund is rarely next year's best. Investors who chase returns consistently underperform.\n\n**3. Market Timing**\nMissing just the 10 best trading days per decade cuts your returns in HALF. Stay invested always.\n\n**4. Ignoring Fees**\n1% annual fee on $30K invested for 30 years = $150,000 lost. Choose the lowest-cost funds.\n\n**5. Over-Diversifying Into Complexity**\nOwning 30 ETFs doesn't make you more diversified — it makes you confused. 3-5 funds is enough.\n\n**6. Neglecting Tax Efficiency**\nPaying unnecessary taxes can cost you 1-2% annually. Use tax-advantaged accounts first.\n\n**7. Not Starting**\nThe biggest mistake of all. Every year you wait costs you compound growth you can never recover.\n\n### The Wealth-Building Formula\nTime × Consistency × Low Costs = Wealth\n\n### Your Path to Financial Freedom\n$30K invested today at 10%:\n- 10 years: $78,000\n- 20 years: $201,000\n- 30 years: $523,000\n\nAdd $500/month to that: **$1.47 million in 30 years**`,
+      },
+    ],
+  },
+];
