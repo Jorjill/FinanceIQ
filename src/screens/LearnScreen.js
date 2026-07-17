@@ -33,155 +33,104 @@ export default function LearnScreen({ navigation }) {
   return (
     <View style={styles.container}>
       {/* Search */}
-      <View style={styles.searchBar}>
-        <Text style={styles.searchIcon}>🔍</Text>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search topics..."
-          placeholderTextColor={colors.textMuted}
-          value={search}
-          onChangeText={setSearch}
-          clearButtonMode="while-editing"
-        />
-      </View>
+      <TextInput
+        style={styles.search}
+        placeholder="Search courses..."
+        placeholderTextColor={colors.textMuted}
+        value={search}
+        onChangeText={setSearch}
+        clearButtonMode="while-editing"
+      />
 
-      {/* Level Filter */}
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterRow} contentContainerStyle={styles.filterContent}>
+      <View style={styles.divider} />
+
+      {/* Level Filter — underline style */}
+      <View style={styles.tabs}>
         {LEVELS.map((level) => (
-          <TouchableOpacity
-            key={level}
-            style={[styles.filterChip, filter === level && styles.filterChipActive]}
-            onPress={() => setFilter(level)}
-          >
-            <Text style={[styles.filterText, filter === level && styles.filterTextActive]}>
-              {level}
-            </Text>
+          <TouchableOpacity key={level} style={styles.tab} onPress={() => setFilter(level)}>
+            <Text style={[styles.tabText, filter === level && styles.tabTextActive]}>{level}</Text>
+            {filter === level && <View style={styles.tabUnderline} />}
           </TouchableOpacity>
         ))}
-      </ScrollView>
+      </View>
 
-      {/* Courses List */}
+      <View style={styles.divider} />
+
+      {/* Course list */}
       <ScrollView style={styles.list} contentContainerStyle={styles.listContent}>
         {(filter === 'All' ? LEVELS.slice(1) : [filter]).map((level) => {
           const levelCourses = grouped[level] || filtered.filter((c) => c.level === level);
-          if (levelCourses.length === 0) return null;
+          if (!levelCourses.length) return null;
           return (
             <View key={level}>
-              <View style={styles.levelHeader}>
-                <View style={[styles.levelDot, { backgroundColor: levelColors[level] }]} />
-                <Text style={styles.levelTitle}>{level}</Text>
-                <Text style={styles.levelCount}>{levelCourses.length} courses</Text>
-              </View>
-              {levelCourses.map((course) => {
+              <Text style={[styles.levelLabel, { color: levelColors[level] }]}>
+                {level.toUpperCase()} · {levelCourses.length}
+              </Text>
+              {levelCourses.map((course, idx) => {
                 const p = getCourseProgress(course, completed);
+                const lc = levelColors[course.level];
+                const isLast = idx === levelCourses.length - 1;
                 return (
-                  <CourseCard
+                  <TouchableOpacity
                     key={course.id}
-                    course={course}
-                    progress={p}
+                    style={[styles.row, !isLast && styles.rowBorder]}
                     onPress={() => navigation.navigate('Topic', { course })}
-                  />
+                    activeOpacity={0.7}
+                  >
+                    <Text style={styles.rowIcon}>{course.icon}</Text>
+                    <View style={styles.rowBody}>
+                      <View style={styles.rowTop}>
+                        <Text style={styles.rowTitle} numberOfLines={1}>{course.title}</Text>
+                        {p.done === p.total && p.total > 0 && <Text style={[styles.doneTag, { color: lc }]}>✓</Text>}
+                      </View>
+                      <Text style={styles.rowSub} numberOfLines={1}>{course.subtitle}</Text>
+                      <View style={styles.barBg}>
+                        <View style={[styles.barFill, { width: `${p.pct}%`, backgroundColor: lc }]} />
+                      </View>
+                    </View>
+                    <Text style={styles.rowCount}>{p.done}/{p.total}</Text>
+                  </TouchableOpacity>
                 );
               })}
             </View>
           );
         })}
-        {filtered.length === 0 && (
-          <View style={styles.empty}>
-            <Text style={styles.emptyIcon}>🔍</Text>
-            <Text style={styles.emptyText}>No courses found</Text>
-          </View>
+        {!filtered.length && (
+          <Text style={styles.empty}>No courses found</Text>
         )}
       </ScrollView>
     </View>
   );
 }
 
-function CourseCard({ course, progress, onPress }) {
-  const levelColor = levelColors[course.level];
-  const isCompleted = progress.done === progress.total && progress.total > 0;
-
-  return (
-    <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.8}>
-      <View style={styles.cardLeft}>
-        <View style={[styles.iconContainer, { backgroundColor: levelColor + '22' }]}>
-          <Text style={styles.courseIcon}>{course.icon}</Text>
-        </View>
-      </View>
-      <View style={styles.cardBody}>
-        <View style={styles.cardTop}>
-          <Text style={styles.courseTitle} numberOfLines={1}>{course.title}</Text>
-          {isCompleted && <Text style={styles.completedBadge}>✓</Text>}
-        </View>
-        <Text style={styles.courseSubtitle} numberOfLines={2}>{course.subtitle}</Text>
-        <View style={styles.cardMeta}>
-          <Text style={styles.metaText}>📖 {course.lessons.length} lessons</Text>
-          <Text style={styles.metaDot}>·</Text>
-          <Text style={styles.metaText}>⏱ {course.duration}</Text>
-        </View>
-        {/* Progress bar */}
-        <View style={styles.progressBg}>
-          <View style={[styles.progressFill, { width: `${progress.pct}%`, backgroundColor: levelColor }]} />
-        </View>
-        <Text style={styles.progressText}>{progress.done}/{progress.total} completed</Text>
-      </View>
-      <View style={[styles.levelPill, { backgroundColor: levelColor + '22' }]}>
-        <Text style={[styles.levelPillText, { color: levelColor }]}>{course.level[0]}</Text>
-      </View>
-    </TouchableOpacity>
-  );
-}
-
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-  searchBar: {
-    flexDirection: 'row', alignItems: 'center',
-    margin: 16, backgroundColor: colors.surface,
-    borderRadius: 12, paddingHorizontal: 12, borderWidth: 1, borderColor: colors.border,
+  search: {
+    paddingHorizontal: 16, paddingVertical: 11,
+    fontSize: 15, color: colors.text,
   },
-  searchIcon: { fontSize: 16, marginRight: 8 },
-  searchInput: { flex: 1, color: colors.text, fontSize: 15, paddingVertical: 12 },
-  filterRow: { flexGrow: 0 },
-  filterContent: { paddingHorizontal: 16, gap: 8, paddingBottom: 8 },
-  filterChip: {
-    paddingHorizontal: 16, paddingVertical: 8,
-    borderRadius: 20, borderWidth: 1, borderColor: colors.border,
-    backgroundColor: colors.surface,
-  },
-  filterChipActive: { backgroundColor: colors.primary, borderColor: colors.primary },
-  filterText: { color: colors.textSecondary, fontSize: 13, fontWeight: '600' },
-  filterTextActive: { color: colors.background },
+  divider: { height: 1, backgroundColor: colors.border },
+  tabs: { flexDirection: 'row', paddingHorizontal: 8, height: 36 },
+  tab: { flex: 1, justifyContent: 'center', alignItems: 'center', height: 36 },
+  tabText: { fontSize: 14, color: colors.textMuted, fontWeight: '600' },
+  tabTextActive: { color: colors.text },
+  tabUnderline: { position: 'absolute', bottom: 0, left: 12, right: 12, height: 2, backgroundColor: colors.primary, borderRadius: 1 },
   list: { flex: 1 },
-  listContent: { paddingHorizontal: 16, paddingTop: 8, paddingBottom: 32 },
-  levelHeader: { flexDirection: 'row', alignItems: 'center', marginTop: 20, marginBottom: 12, gap: 8 },
-  levelDot: { width: 10, height: 10, borderRadius: 5 },
-  levelTitle: { fontSize: 16, fontWeight: '700', color: colors.text, flex: 1 },
-  levelCount: { fontSize: 12, color: colors.textSecondary },
-  card: {
-    flexDirection: 'row', backgroundColor: colors.surface,
-    borderRadius: 16, padding: 14, marginBottom: 12,
-    borderWidth: 1, borderColor: colors.border,
+  listContent: { paddingBottom: 40 },
+  levelLabel: {
+    fontSize: 11, fontWeight: '700', letterSpacing: 1,
+    paddingHorizontal: 16, paddingTop: 14, paddingBottom: 4,
   },
-  cardLeft: { marginRight: 12, justifyContent: 'flex-start', paddingTop: 2 },
-  iconContainer: { width: 48, height: 48, borderRadius: 14, justifyContent: 'center', alignItems: 'center' },
-  courseIcon: { fontSize: 24 },
-  cardBody: { flex: 1 },
-  cardTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  courseTitle: { fontSize: 15, fontWeight: '700', color: colors.text, flex: 1 },
-  completedBadge: { color: colors.success, fontSize: 16, marginLeft: 6 },
-  courseSubtitle: { fontSize: 12, color: colors.textSecondary, marginTop: 3, marginBottom: 6, lineHeight: 17 },
-  cardMeta: { flexDirection: 'row', alignItems: 'center', marginBottom: 8, gap: 4 },
-  metaText: { fontSize: 11, color: colors.textMuted },
-  metaDot: { color: colors.textMuted, fontSize: 11 },
-  progressBg: { height: 4, backgroundColor: colors.border, borderRadius: 2, overflow: 'hidden', marginBottom: 4 },
-  progressFill: { height: '100%', borderRadius: 2 },
-  progressText: { fontSize: 10, color: colors.textMuted },
-  levelPill: {
-    width: 28, height: 28, borderRadius: 8,
-    justifyContent: 'center', alignItems: 'center', marginLeft: 8, alignSelf: 'center',
-  },
-  levelPillText: { fontSize: 13, fontWeight: '800' },
-  empty: { alignItems: 'center', paddingTop: 60 },
-  emptyIcon: { fontSize: 48, marginBottom: 12 },
-  emptyText: { color: colors.textSecondary, fontSize: 16 },
+  row: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 10, gap: 12 },
+  rowBorder: { borderBottomWidth: 1, borderBottomColor: colors.border },
+  rowIcon: { fontSize: 20, width: 28, textAlign: 'center' },
+  rowBody: { flex: 1 },
+  rowTop: { flexDirection: 'row', alignItems: 'center', marginBottom: 3 },
+  rowTitle: { flex: 1, fontSize: 14, fontWeight: '600', color: colors.text },
+  doneTag: { fontSize: 13, fontWeight: '700', marginLeft: 6 },
+  rowSub: { fontSize: 12, color: colors.textMuted, marginBottom: 5 },
+  barBg: { height: 2, backgroundColor: colors.border, borderRadius: 1, overflow: 'hidden' },
+  barFill: { height: '100%', borderRadius: 1 },
+  rowCount: { fontSize: 12, color: colors.textMuted, width: 32, textAlign: 'right' },
+  empty: { textAlign: 'center', color: colors.textMuted, paddingTop: 60, fontSize: 14 },
 });

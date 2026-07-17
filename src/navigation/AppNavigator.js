@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 
 import HomeScreen from '../screens/HomeScreen';
 import LearnScreen from '../screens/LearnScreen';
@@ -10,6 +10,8 @@ import TopicScreen from '../screens/TopicScreen';
 import LessonScreen from '../screens/LessonScreen';
 import CalculatorScreen from '../screens/CalculatorScreen';
 import ProgressScreen from '../screens/ProgressScreen';
+import NewsScreen from '../screens/NewsScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 import { colors } from '../theme/colors';
 
 const Stack = createNativeStackNavigator();
@@ -26,9 +28,21 @@ const screenOptions = {
 function HomeStack() {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
-      <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'FinanceIQ' }} />
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={({ navigation }) => ({
+          title: 'FinanceIQ',
+          headerRight: () => (
+            <TouchableOpacity onPress={() => navigation.navigate('Settings')} style={{ marginRight: 8 }}>
+              <Text style={{ fontSize: 22 }}>⚙️</Text>
+            </TouchableOpacity>
+          ),
+        })}
+      />
       <Stack.Screen name="Topic" component={TopicScreen} options={({ route }) => ({ title: route.params.course.title })} />
       <Stack.Screen name="Lesson" component={LessonScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} options={{ title: 'AI Settings' }} />
     </Stack.Navigator>
   );
 }
@@ -57,6 +71,14 @@ function ProgressStack() {
       <Stack.Screen name="ProgressMain" component={ProgressScreen} options={{ title: 'My Progress' }} />
       <Stack.Screen name="Topic" component={TopicScreen} options={({ route }) => ({ title: route.params.course.title })} />
       <Stack.Screen name="Lesson" component={LessonScreen} />
+    </Stack.Navigator>
+  );
+}
+
+function NewsStack() {
+  return (
+    <Stack.Navigator screenOptions={screenOptions}>
+      <Stack.Screen name="NewsMain" component={NewsScreen} options={{ title: 'Market News' }} />
     </Stack.Navigator>
   );
 }
@@ -110,6 +132,14 @@ export default function AppNavigator() {
           options={{
             tabBarLabel: 'Calculator',
             tabBarIcon: ({ focused }) => <TabIcon icon="🧮" focused={focused} />,
+          }}
+        />
+        <Tab.Screen
+          name="NewsTab"
+          component={NewsStack}
+          options={{
+            tabBarLabel: 'News',
+            tabBarIcon: ({ focused }) => <TabIcon icon="📰" focused={focused} />,
           }}
         />
         <Tab.Screen

@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet, RefreshControl,
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../theme/colors';
 import { courses, dailyTips } from '../data/courses';
 import { getCompletedLessons, getTotalProgress, getCourseProgress } from '../utils/storage';
@@ -22,21 +21,14 @@ export default function HomeScreen({ navigation }) {
 
   useFocusEffect(useCallback(() => { load(); }, []));
 
-  const onRefresh = async () => {
-    setRefreshing(true);
-    await load();
-    setRefreshing(false);
-  };
+  const onRefresh = async () => { setRefreshing(true); await load(); setRefreshing(false); };
 
   const progress = getTotalProgress(courses, completed);
   const inProgress = courses.filter((c) => {
     const p = getCourseProgress(c, completed);
     return p.done > 0 && p.done < p.total;
   });
-  const recommended = courses.filter((c) => {
-    const p = getCourseProgress(c, completed);
-    return p.done === 0;
-  }).slice(0, 3);
+  const recommended = courses.filter((c) => getCourseProgress(c, completed).done === 0).slice(0, 4);
 
   return (
     <ScrollView
@@ -45,116 +37,111 @@ export default function HomeScreen({ navigation }) {
       refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.primary} />}
     >
       {/* Header */}
-      <LinearGradient colors={['#0F2027', '#203A43', '#2C5364']} style={styles.header}>
-        <Text style={styles.greeting}>Good {getTimeOfDay()},</Text>
+      <View style={styles.header}>
+        <Text style={styles.greeting}>Good {getTimeOfDay()}</Text>
         <Text style={styles.subtitle}>Ready to build wealth today?</Text>
-
-        {/* Overall Progress */}
-        <View style={styles.progressCard}>
-          <View style={styles.progressRow}>
-            <Text style={styles.progressLabel}>Overall Progress</Text>
-            <Text style={styles.progressPct}>{Math.round(progress.pct)}%</Text>
-          </View>
+        <View style={styles.progressRow}>
           <View style={styles.progressBarBg}>
             <View style={[styles.progressBarFill, { width: `${progress.pct}%` }]} />
           </View>
-          <Text style={styles.progressSub}>{progress.done} of {progress.total} lessons completed</Text>
+          <Text style={styles.progressPct}>{Math.round(progress.pct)}%</Text>
         </View>
-      </LinearGradient>
-
-      {/* Daily Tip */}
-      <View style={styles.section}>
-        <LinearGradient colors={['#1a1a2e', '#16213e']} style={styles.tipCard}>
-          <Text style={styles.tipLabel}>💡 Daily Insight</Text>
-          <Text style={styles.tipText}>{tip}</Text>
-        </LinearGradient>
+        <Text style={styles.progressSub}>{progress.done} of {progress.total} lessons</Text>
       </View>
 
-      {/* Stats Row */}
+      <View style={styles.divider} />
+
+      {/* Daily tip */}
+      <View style={styles.tipRow}>
+        <View style={styles.tipDot} />
+        <Text style={styles.tipText}>{tip}</Text>
+      </View>
+
+      <View style={styles.divider} />
+
+      {/* Stats */}
       <View style={styles.statsRow}>
-        {[
-          { label: 'Courses', value: courses.length, icon: '📚' },
-          { label: 'Completed', value: progress.done, icon: '✅' },
-          { label: 'Streak', value: '1 day', icon: '🔥' },
-        ].map((stat) => (
-          <View key={stat.label} style={styles.statCard}>
-            <Text style={styles.statIcon}>{stat.icon}</Text>
-            <Text style={styles.statValue}>{stat.value}</Text>
-            <Text style={styles.statLabel}>{stat.label}</Text>
-          </View>
-        ))}
+        <Stat label="Courses" value={courses.length} />
+        <View style={styles.statDivider} />
+        <Stat label="Done" value={progress.done} />
+        <View style={styles.statDivider} />
+        <Stat label="Remaining" value={progress.total - progress.done} />
       </View>
+
+      <View style={styles.divider} />
 
       {/* Continue Learning */}
       {inProgress.length > 0 && (
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Continue Learning</Text>
+        <>
+          <Text style={styles.sectionLabel}>CONTINUE</Text>
           {inProgress.map((course) => {
             const p = getCourseProgress(course, completed);
             return (
-              <TouchableOpacity
+              <CourseRow
                 key={course.id}
-                style={styles.continueCard}
+                course={course}
+                progress={p}
                 onPress={() => navigation.navigate('Topic', { course })}
-                activeOpacity={0.8}
-              >
-                <Text style={styles.continueIcon}>{course.icon}</Text>
-                <View style={styles.continueInfo}>
-                  <Text style={styles.continueTitle}>{course.title}</Text>
-                  <View style={styles.miniProgressBg}>
-                    <View style={[styles.miniProgressFill, { width: `${p.pct}%` }]} />
-                  </View>
-                  <Text style={styles.continueProgress}>{p.done}/{p.total} lessons</Text>
-                </View>
-                <Text style={styles.arrow}>›</Text>
-              </TouchableOpacity>
+              />
             );
           })}
-        </View>
+          <View style={styles.divider} />
+        </>
       )}
 
-      {/* Recommended */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Start Here</Text>
-        {recommended.map((course) => (
-          <TouchableOpacity
-            key={course.id}
-            style={styles.recCard}
-            onPress={() => navigation.navigate('Topic', { course })}
-            activeOpacity={0.8}
-          >
-            <View style={styles.recLeft}>
-              <Text style={styles.recIcon}>{course.icon}</Text>
-              <View>
-                <Text style={styles.recTitle}>{course.title}</Text>
-                <Text style={styles.recMeta}>{course.level} · {course.duration}</Text>
-              </View>
-            </View>
-            <View style={[styles.levelBadge, { backgroundColor: getLevelColor(course.level) + '22' }]}>
-              <Text style={[styles.levelText, { color: getLevelColor(course.level) }]}>{course.level}</Text>
-            </View>
-          </TouchableOpacity>
-        ))}
-        <TouchableOpacity onPress={() => navigation.navigate('Learn')} style={styles.viewAllBtn}>
-          <Text style={styles.viewAllText}>View All Courses →</Text>
-        </TouchableOpacity>
-      </View>
+      {/* Start Here */}
+      <Text style={styles.sectionLabel}>START HERE</Text>
+      {recommended.map((course) => (
+        <CourseRow
+          key={course.id}
+          course={course}
+          progress={getCourseProgress(course, completed)}
+          onPress={() => navigation.navigate('Topic', { course })}
+        />
+      ))}
 
-      {/* $30K Banner */}
-      <LinearGradient colors={['#00D4AA22', '#00D4AA11']} style={styles.bannerCard}>
-        <Text style={styles.bannerIcon}>💰</Text>
-        <View style={{ flex: 1 }}>
-          <Text style={styles.bannerTitle}>Ready to invest your $30K?</Text>
-          <Text style={styles.bannerSub}>Complete the Advanced section for a personalized plan</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Learn')} style={styles.viewAll}>
+        <Text style={styles.viewAllText}>All courses →</Text>
+      </TouchableOpacity>
+
+      <View style={styles.divider} />
+
+      {/* $30K note */}
+      <TouchableOpacity style={styles.bannerRow} onPress={() => navigation.navigate('Learn')} activeOpacity={0.7}>
+        <View style={styles.bannerLeft}>
+          <Text style={styles.bannerTitle}>$30K Investment Plan</Text>
+          <Text style={styles.bannerSub}>Unlock in the Advanced section</Text>
         </View>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Learn')}
-          style={styles.bannerBtn}
-        >
-          <Text style={styles.bannerBtnText}>Go</Text>
-        </TouchableOpacity>
-      </LinearGradient>
+        <Text style={styles.bannerArrow}>→</Text>
+      </TouchableOpacity>
     </ScrollView>
+  );
+}
+
+function Stat({ label, value }) {
+  return (
+    <View style={styles.stat}>
+      <Text style={styles.statValue}>{value}</Text>
+      <Text style={styles.statLabel}>{label}</Text>
+    </View>
+  );
+}
+
+function CourseRow({ course, progress, onPress }) {
+  const levelColor =
+    course.level === 'Beginner' ? colors.beginner :
+    course.level === 'Intermediate' ? colors.intermediate : colors.advanced;
+  return (
+    <TouchableOpacity style={styles.row} onPress={onPress} activeOpacity={0.7}>
+      <Text style={styles.rowIcon}>{course.icon}</Text>
+      <View style={styles.rowBody}>
+        <Text style={styles.rowTitle} numberOfLines={1}>{course.title}</Text>
+        <View style={styles.rowBarBg}>
+          <View style={[styles.rowBarFill, { width: `${progress.pct}%`, backgroundColor: levelColor }]} />
+        </View>
+      </View>
+      <Text style={styles.rowMeta}>{progress.done}/{progress.total}</Text>
+    </TouchableOpacity>
   );
 }
 
@@ -165,75 +152,49 @@ function getTimeOfDay() {
   return 'evening';
 }
 
-function getLevelColor(level) {
-  if (level === 'Beginner') return colors.beginner;
-  if (level === 'Intermediate') return colors.intermediate;
-  return colors.advanced;
-}
-
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-  content: { paddingBottom: 32 },
-  header: { padding: 24, paddingTop: 16, paddingBottom: 28 },
-  greeting: { fontSize: 28, fontWeight: '800', color: colors.text },
-  subtitle: { fontSize: 15, color: colors.textSecondary, marginTop: 4, marginBottom: 20 },
-  progressCard: {
-    backgroundColor: 'rgba(255,255,255,0.08)',
-    borderRadius: 16,
-    padding: 16,
+  content: { paddingBottom: 40 },
+
+  header: { padding: 16, paddingTop: 14 },
+  greeting: { fontSize: 26, fontWeight: '700', color: colors.text },
+  subtitle: { fontSize: 14, color: colors.textSecondary, marginTop: 2, marginBottom: 12 },
+  progressRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  progressBarBg: { flex: 1, height: 3, backgroundColor: colors.border, borderRadius: 2, overflow: 'hidden' },
+  progressBarFill: { height: '100%', backgroundColor: colors.primary, borderRadius: 2 },
+  progressPct: { fontSize: 13, fontWeight: '700', color: colors.primary, width: 36, textAlign: 'right' },
+  progressSub: { fontSize: 12, color: colors.textMuted, marginTop: 6 },
+
+  divider: { height: 1, backgroundColor: colors.border },
+
+  tipRow: { flexDirection: 'row', alignItems: 'flex-start', paddingHorizontal: 16, paddingVertical: 12, gap: 10 },
+  tipDot: { width: 6, height: 6, borderRadius: 3, backgroundColor: colors.secondary, marginTop: 7 },
+  tipText: { flex: 1, fontSize: 14, color: colors.textSecondary, lineHeight: 21 },
+
+  statsRow: { flexDirection: 'row', paddingVertical: 12 },
+  stat: { flex: 1, alignItems: 'center' },
+  statDivider: { width: 1, backgroundColor: colors.border, marginVertical: 4 },
+  statValue: { fontSize: 22, fontWeight: '700', color: colors.text },
+  statLabel: { fontSize: 11, color: colors.textMuted, marginTop: 2 },
+
+  sectionLabel: {
+    fontSize: 11, fontWeight: '700', color: colors.textMuted,
+    letterSpacing: 1, paddingHorizontal: 16, paddingTop: 14, paddingBottom: 4,
   },
-  progressRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 },
-  progressLabel: { color: colors.textSecondary, fontSize: 13, fontWeight: '600' },
-  progressPct: { color: colors.primary, fontSize: 18, fontWeight: '800' },
-  progressBarBg: { height: 8, backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: 4, overflow: 'hidden' },
-  progressBarFill: { height: '100%', backgroundColor: colors.primary, borderRadius: 4 },
-  progressSub: { color: colors.textMuted, fontSize: 12, marginTop: 8 },
-  section: { paddingHorizontal: 16, marginTop: 24 },
-  sectionTitle: { fontSize: 18, fontWeight: '700', color: colors.text, marginBottom: 12 },
-  tipCard: { borderRadius: 16, padding: 16, borderWidth: 1, borderColor: colors.border },
-  tipLabel: { fontSize: 12, color: colors.secondary, fontWeight: '700', marginBottom: 6, letterSpacing: 0.5 },
-  tipText: { fontSize: 15, color: colors.text, lineHeight: 22 },
-  statsRow: { flexDirection: 'row', paddingHorizontal: 16, marginTop: 20, gap: 12 },
-  statCard: {
-    flex: 1, backgroundColor: colors.surface, borderRadius: 14,
-    padding: 14, alignItems: 'center', borderWidth: 1, borderColor: colors.border,
-  },
-  statIcon: { fontSize: 22, marginBottom: 6 },
-  statValue: { fontSize: 18, fontWeight: '800', color: colors.text },
-  statLabel: { fontSize: 11, color: colors.textSecondary, marginTop: 2 },
-  continueCard: {
-    flexDirection: 'row', alignItems: 'center',
-    backgroundColor: colors.surface, borderRadius: 14, padding: 14,
-    marginBottom: 10, borderWidth: 1, borderColor: colors.border,
-  },
-  continueIcon: { fontSize: 28, marginRight: 12 },
-  continueInfo: { flex: 1 },
-  continueTitle: { fontSize: 14, fontWeight: '700', color: colors.text, marginBottom: 6 },
-  miniProgressBg: { height: 4, backgroundColor: colors.border, borderRadius: 2, overflow: 'hidden', marginBottom: 4 },
-  miniProgressFill: { height: '100%', backgroundColor: colors.primary, borderRadius: 2 },
-  continueProgress: { fontSize: 11, color: colors.textSecondary },
-  arrow: { fontSize: 24, color: colors.textMuted },
-  recCard: {
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    backgroundColor: colors.surface, borderRadius: 14, padding: 14,
-    marginBottom: 10, borderWidth: 1, borderColor: colors.border,
-  },
-  recLeft: { flexDirection: 'row', alignItems: 'center', gap: 12, flex: 1 },
-  recIcon: { fontSize: 28 },
-  recTitle: { fontSize: 14, fontWeight: '700', color: colors.text },
-  recMeta: { fontSize: 12, color: colors.textSecondary, marginTop: 2 },
-  levelBadge: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: 8 },
-  levelText: { fontSize: 11, fontWeight: '700' },
-  viewAllBtn: { alignItems: 'center', paddingVertical: 12 },
-  viewAllText: { color: colors.primary, fontSize: 14, fontWeight: '700' },
-  bannerCard: {
-    flexDirection: 'row', alignItems: 'center', gap: 12,
-    marginHorizontal: 16, marginTop: 24, borderRadius: 16,
-    padding: 16, borderWidth: 1, borderColor: colors.primary + '44',
-  },
-  bannerIcon: { fontSize: 32 },
+  row: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 10, gap: 12 },
+  rowIcon: { fontSize: 20, width: 28, textAlign: 'center' },
+  rowBody: { flex: 1 },
+  rowTitle: { fontSize: 14, fontWeight: '600', color: colors.text, marginBottom: 4 },
+  rowBarBg: { height: 3, backgroundColor: colors.border, borderRadius: 2, overflow: 'hidden' },
+  rowBarFill: { height: '100%', borderRadius: 2 },
+  rowMeta: { fontSize: 12, color: colors.textMuted, width: 32, textAlign: 'right' },
+
+  viewAll: { paddingHorizontal: 16, paddingVertical: 8 },
+  viewAllText: { fontSize: 13, color: colors.primary, fontWeight: '600' },
+
+  bannerRow: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 14 },
+  bannerLeft: { flex: 1 },
   bannerTitle: { fontSize: 14, fontWeight: '700', color: colors.text },
   bannerSub: { fontSize: 12, color: colors.textSecondary, marginTop: 2 },
-  bannerBtn: { backgroundColor: colors.primary, borderRadius: 10, paddingHorizontal: 16, paddingVertical: 8 },
-  bannerBtnText: { color: colors.background, fontWeight: '800', fontSize: 13 },
+  bannerArrow: { fontSize: 18, color: colors.primary },
 });

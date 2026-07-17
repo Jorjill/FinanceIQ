@@ -2,6 +2,21 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const COMPLETED_KEY = '@financeiq_completed';
 const BOOKMARKS_KEY = '@financeiq_bookmarks';
+const OPENAI_KEY = '@financeiq_openai_key';
+const LLM_ENABLED_KEY = '@financeiq_llm_enabled';
+
+export async function getOpenAIKey() {
+  try { return await AsyncStorage.getItem(OPENAI_KEY) || ''; } catch { return ''; }
+}
+export async function setOpenAIKey(key) {
+  try { await AsyncStorage.setItem(OPENAI_KEY, key.trim()); } catch {}
+}
+export async function getLLMEnabled() {
+  try { const v = await AsyncStorage.getItem(LLM_ENABLED_KEY); return v !== 'false'; } catch { return true; }
+}
+export async function setLLMEnabled(val) {
+  try { await AsyncStorage.setItem(LLM_ENABLED_KEY, String(val)); } catch {}
+}
 
 export async function getCompletedLessons() {
   try {
