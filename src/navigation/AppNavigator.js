@@ -12,6 +12,7 @@ import CalculatorScreen from '../screens/CalculatorScreen';
 import ProgressScreen from '../screens/ProgressScreen';
 import NewsScreen from '../screens/NewsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import SimulatorScreen from '../screens/SimulatorScreen';
 import { colors } from '../theme/colors';
 
 const Stack = createNativeStackNavigator();
@@ -83,6 +84,14 @@ function NewsStack() {
   );
 }
 
+function SimStack() {
+  return (
+    <Stack.Navigator screenOptions={screenOptions}>
+      <Stack.Screen name="SimMain" component={SimulatorScreen} options={{ title: 'Simulator' }} />
+    </Stack.Navigator>
+  );
+}
+
 function TabIcon({ icon, label, focused }) {
   return (
     <View style={{ alignItems: 'center', gap: 2 }}>
@@ -148,6 +157,14 @@ export default function AppNavigator() {
           options={{
             tabBarLabel: 'Progress',
             tabBarIcon: ({ focused }) => <TabIcon icon="📊" focused={focused} />,
+          }}
+        />
+        <Tab.Screen
+          name="SimTab"
+          component={SimStack}
+          options={{
+            tabBarLabel: 'Simulate',
+            tabBarIcon: ({ focused }) => <TabIcon icon="🎯" focused={focused} />,
           }}
         />
       </Tab.Navigator>
